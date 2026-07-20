@@ -131,7 +131,8 @@ export function heuristicSplit(text) {
     const p = paras[i]
     const next = paras[i + 1]
     const isHeading = looksLikeHeading(p) && next && !looksLikeHeading(next)
-    if (isHeading && (!current || current.paragraphs.length >= 2)) {
+    // 已有正文段落时,新标题开新文章;紧跟在标题后的短行(作者/副题)并入当前篇
+    if (isHeading && (!current || current.paragraphs.length >= 1)) {
       if (current) articles.push(current)
       current = { title: p, author: '', paragraphs: [] }
     } else {
